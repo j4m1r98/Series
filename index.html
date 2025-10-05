@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Doctor - Serie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        /* Reproductor de video */
+        .video-player {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-controls {
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .video-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Pestañas de temporadas */
+        .seasons-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .season-tab {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .season-tab:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .season-tab.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+        }
+        
+        /* Lista de capítulos */
+        .episodes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .episode-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .episode-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .episode-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4ecdc4;
+        }
+        
+        .episode-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .episode-duration {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .play-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .seasons-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .season-tab {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .episodes-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-player {
+                margin: 0 -20px;
+                border-radius: 0;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>El Doctor</h1>
+            <p class="subtitle">Serie de ciencia ficción • 4 temporadas</p>
+        </header>
+        
+        <!-- Reproductor de video -->
+        <div class="video-player">
+            <div class="video-container">
+                <video id="mainVideo" poster="https://placehold.co/800x450/1a1a2e/4ecdc4?text=El+Doctor" controls>
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            <div class="video-controls">
+                <div class="video-title">Selecciona un capítulo para reproducir</div>
+                <div class="video-info">Duración: --:--</div>
+            </div>
+        </div>
+        
+        <!-- Pestañas de temporadas -->
+        <div class="seasons-tabs" id="seasonTabs">
+            <div class="season-tab active" data-season="1">Temporada 1</div>
+            <div class="season-tab" data-season="2">Temporada 2</div>
+            <div class="season-tab" data-season="3">Temporada 3</div>
+            <div class="season-tab" data-season="4">Temporada 4</div>
+        </div>
+        
+        <!-- Lista de capítulos -->
+        <div class="episodes-container" id="episodesContainer">
+            <!-- Los capítulos se generarán dinámicamente -->
+        </div>
+    </div>
+
+    <script>
+        // URLs simuladas para todos los capítulos usando videos de prueba públicos
+        const videoUrls = {
+            1: {
+                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                19: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                20: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+            },
+            2: {
+                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
+            },
+            3: {
+                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                19: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                20: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+            },
+            4: {
+                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+            }
+        };
+
+        // Títulos simulados para los episodios
+        const episodeTitles = {
+            1: "El comienzo del viaje",
+            2: "Misterios del tiempo",
+            3: "Enemigos antiguos",
+            4: "Aliados inesperados",
+            5: "La puerta dimensional",
+            6: "Secretos del pasado",
+            7: "La profecía",
+            8: "Traición en las sombras",
+            9: "El laboratorio secreto",
+            10: "Convergencia temporal",
+            11: "El experimento fallido",
+            12: "Rescate en el futuro",
+            13: "La máquina del tiempo",
+            14: "Paradojas temporales",
+            15: "El último recurso",
+            16: "Revelaciones",
+            17: "La batalla final",
+            18: "Nuevos horizontes",
+            19: "El legado",
+            20: "Hasta la próxima aventura"
+        };
+
+        // Duraciones simuladas (en minutos)
+        const episodeDurations = {
+            1: 45, 2: 42, 3: 48, 4: 44, 5: 46, 6: 43, 7: 47, 8: 45, 9: 49, 10: 44,
+            11: 46, 12: 43, 13: 48, 14: 45, 15: 47, 16: 44, 17: 50, 18: 46, 19: 45, 20: 48
+        };
+
+        let currentSeason = 1;
+        
+        // Función para generar capítulos
+        function generateEpisodes(season) {
+            const container = document.getElementById('episodesContainer');
+            container.innerHTML = '';
+            
+            const episodes = Object.keys(videoUrls[season]).length;
+            
+            for (let i = 1; i <= episodes; i++) {
+                const episodeCard = document.createElement('div');
+                episodeCard.className = 'episode-card';
+                episodeCard.dataset.season = season;
+                episodeCard.dataset.episode = i;
+                
+                const title = episodeTitles[i] || `Episodio ${i}`;
+                const duration = episodeDurations[i] || Math.floor(Math.random() * 11) + 40;
+                
+                episodeCard.innerHTML = `
+                    <div class="episode-number">Capítulo ${i}</div>
+                    <div class="episode-title">${title}</div>
+                    <div class="episode-duration">
+                        <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21"></polygon>
+                        </svg>
+                        ${duration} min
+                    </div>
+                `;
+                
+                episodeCard.addEventListener('click', () => playEpisode(season, i));
+                container.appendChild(episodeCard);
+            }
+        }
+        
+        // Función para reproducir episodio
+        function playEpisode(season, episode) {
+            const video = document.getElementById('mainVideo');
+            const videoTitle = document.querySelector('.video-title');
+            const videoInfo = document.querySelector('.video-info');
+            
+            // Obtener la URL real
+            const videoUrl = videoUrls[season][episode];
+            const title = episodeTitles[episode] || `Episodio ${episode}`;
+            const duration = episodeDurations[episode] || Math.floor(Math.random() * 11) + 40;
+            
+            if (videoUrl) {
+                video.src = videoUrl;
+                video.load();
+                video.play().catch(e => {
+                    console.log("Error al reproducir:", e);
+                    videoTitle.textContent = `Error al cargar Temporada ${season} - Capítulo ${episode}`;
+                });
+                videoTitle.textContent = `Temporada ${season} - Capítulo ${episode}: ${title}`;
+                videoInfo.textContent = `${duration} min`;
+            }
+        }
+        
+        // Manejar clic en pestañas de temporadas
+        document.querySelectorAll('.season-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remover clase active de todas las pestañas
+                document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+                // Agregar clase active a la pestaña clickeada
+                tab.classList.add('active');
+                currentSeason = parseInt(tab.dataset.season);
+                generateEpisodes(currentSeason);
+            });
+        });
+        
+        // Generar capítulos iniciales (Temporada 1)
+        generateEpisodes(1);
+    </script>
+</body>
+</html>
