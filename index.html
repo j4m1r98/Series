@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Doctor - Serie</title>
+    <title>THE GOOD DOCTOR</title>
     <style>
         * {
             margin: 0;
@@ -61,13 +61,13 @@
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
         }
         
-        .video-container video {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            border: none;
         }
         
         .video-controls {
@@ -212,16 +212,14 @@
 <body>
     <div class="container">
         <header>
-            <h1>El Doctor</h1>
-            <p class="subtitle">Serie de ciencia ficción • 4 temporadas</p>
+            <h1>THE GOOD DOCTOR</h1>
+            <p class="subtitle">Temporadas 4 a 7</p>
         </header>
         
         <!-- Reproductor de video -->
         <div class="video-player">
             <div class="video-container">
-                <video id="mainVideo" poster="https://placehold.co/800x450/1a1a2e/4ecdc4?text=El+Doctor" controls>
-                    Tu navegador no soporta el elemento de video.
-                </video>
+                <iframe id="mainVideo" src="about:blank" allowfullscreen></iframe>
             </div>
             <div class="video-controls">
                 <div class="video-title">Selecciona un capítulo para reproducir</div>
@@ -231,10 +229,10 @@
         
         <!-- Pestañas de temporadas -->
         <div class="seasons-tabs" id="seasonTabs">
-            <div class="season-tab active" data-season="1">Temporada 1</div>
-            <div class="season-tab" data-season="2">Temporada 2</div>
-            <div class="season-tab" data-season="3">Temporada 3</div>
-            <div class="season-tab" data-season="4">Temporada 4</div>
+            <div class="season-tab active" data-season="4">Temporada 4</div>
+            <div class="season-tab" data-season="5">Temporada 5</div>
+            <div class="season-tab" data-season="6">Temporada 6</div>
+            <div class="season-tab" data-season="7">Temporada 7</div>
         </div>
         
         <!-- Lista de capítulos -->
@@ -244,170 +242,152 @@
     </div>
 
     <script>
-        // URLs simuladas para todos los capítulos usando videos de prueba públicos
-        const videoUrls = {
-            1: {
-                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                19: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-                20: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
-            },
-            2: {
-                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
-            },
-            3: {
-                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-                11: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                12: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-                13: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-                14: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-                15: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                16: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                17: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                18: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                19: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                20: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
-            },
+        // Datos reales de las temporadas 4 a 7 con enlaces iframe
+        const seasonsData = {
             4: {
-                1: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-                2: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                3: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-                4: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                5: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-                6: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-                7: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-                8: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                9: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                10: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                1: { title: "Primera línea - Parte 1", url: "https://goodstream.one/embed-aebclw5by2v8.html" },
+                2: { title: "Primera línea - Parte 2", url: "https://goodstream.one/embed-xrusgqva7f9t.html" },
+                3: { title: "Novatos", url: "https://goodstream.one/embed-133ui4rvtoad.html" },
+                4: { title: "No es lo mismo", url: "https://goodstream.one/embed-9jeybe58w83v.html" },
+                5: { title: "Culpa", url: "https://goodstream.one/embed-8pqm1nrgfrm9.html" },
+                6: { title: "Lim", url: "https://goodstream.one/embed-anp67ik1rhbw.html" },
+                7: { title: "El principio de incertidumbre", url: "https://goodstream.one/embed-0x98fjfdbpm5.html" },
+                8: { title: "Paternidad", url: "https://goodstream.one/embed-momkqip3q4tq.html" },
+                9: { title: "Prácticas irresponsables en el bar de ensaladas", url: "https://goodstream.one/embed-0uab2x8x8yjl.html" },
+                10: { title: "Descifrar", url: "https://goodstream.one/embed-2rzy3bowl1g7.html" },
+                11: { title: "Todos estamos locos, a veces", url: "https://goodstream.one/embed-g6gwyutir5ul.html" },
+                12: { title: "Pequeños ojos azules", url: "https://goodstream.one/embed-epg86g785vge.html" },
+                13: { title: "Leche derramada", url: "https://goodstream.one/embed-5sqaaffeqzst.html" },
+                14: { title: "Cuestión de género", url: "https://goodstream.one/embed-xmgbxvpcoo51.html" },
+                15: { title: "Esperando", url: "https://goodstream.one/embed-kj0063fx9ilh.html" },
+                16: { title: "El Dr. Ted", url: "https://goodstream.one/embed-aaoc9fagsn3u.html" },
+                17: { title: "Déjalo ir", url: "https://goodstream.one/embed-glbok6sihnoh.html" },
+                18: { title: "Olvidar o perdonar", url: "https://goodstream.one/embed-n4sgkegermdz.html" },
+                19: { title: "Vamos", url: "https://goodstream.one/embed-nl6gbcp7drzt.html" },
+                20: { title: "Regresamos", url: "https://goodstream.one/embed-s62ebmwzsa6f.html" }
+            },
+            5: {
+                1: { title: "Volver a empezar", url: "https://goodstream.one/embed-ohkbmz5lbids.html" },
+                2: { title: "Pastel de bodas", url: "https://goodstream.one/embed-rh17qlecfcxf.html" },
+                3: { title: "Medida de inteligencia", url: "https://goodstream.one/embed-phkpxppuhc2o.html" },
+                4: { title: "Racionalidad", url: "https://goodstream.one/embed-3g9ac1t15ld6.html" },
+                5: { title: "Ciudad de locos", url: "https://goodstream.one/embed-9agl2h6uj2jn.html" },
+                6: { title: "Un corazón", url: "https://goodstream.one/embed-bpzbnt46v62k.html" },
+                7: { title: "Vencido", url: "https://goodstream.one/embed-uukvcasu16zc.html" },
+                8: { title: "Rebelión", url: "https://goodstream.one/embed-t6jjq6czjlqm.html" },
+                9: { title: "Yippee Ki-Yay", url: "https://goodstream.one/embed-z1yf9rc61907.html" },
+                10: { title: "Día libre", url: "https://goodstream.one/embed-iu5rxd00gcge.html" },
+                11: { title: "La familia", url: "https://goodstream.one/embed-s480sbuf9p01.html" },
+                12: { title: "Escasez", url: "https://goodstream.one/embed-6fpoas6d2bjo.html" },
+                13: { title: "Crecer duele", url: "https://goodstream.one/embed-6t2lit29wmji.html" },
+                14: { title: "Intoxicación compartida", url: "https://goodstream.one/embed-4brd3u50i63w.html" },
+                15: { title: "A mi manera", url: "https://goodstream.one/embed-gygol91qf0dp.html" },
+                16: { title: "El show de Shaun", url: "https://goodstream.one/embed-xtgo5cr4xfnv.html" },
+                17: { title: "El show de Lea", url: "https://goodstream.one/embed-1l9rpjp0we0l.html" },
+                18: { title: "Hijos", url: "https://goodstream.one/embed-6839qfdg3re2.html" }
+            },
+            6: {
+                1: { title: "Afterparty", url: "https://goodstream.one/embed-p96rbtp8lrqm.html" },
+                2: { title: "Cambio de perspectiva", url: "https://goodstream.one/embed-5voyt451b5p4.html" },
+                3: { title: "Una buena señal", url: "https://goodstream.one/embed-4zctqr3fnz50.html" },
+                4: { title: "La esquirla", url: "https://goodstream.one/embed-d6zbttqybxf3.html" },
+                5: { title: "Oportunidad de crecimiento", url: "https://goodstream.one/embed-zzj54ktx02uq.html" },
+                6: { title: "Calor y mal humor", url: "https://goodstream.one/embed-qymv7r7mqqhe.html" },
+                7: { title: "Los muchachos no lloran. De la A a la F", url: "https://goodstream.one/embed-tzs9c7mt8pmw.html" },
+                8: { title: "Decisiones difíciles", url: "https://goodstream.one/embed-wl1b74nlmmf1.html" },
+                9: { title: "Destruido o no", url: "https://goodstream.one/embed-w2ht93rf2nym.html" },
+                10: { title: "La fuerza del silencio", url: "https://goodstream.one/embed-orrop6r1ix2j.html" },
+                11: { title: "Un buen chico", url: "https://goodstream.one/embed-160ihf29bi06.html" },
+                12: { title: "365 grados", url: "https://goodstream.one/embed-tzu0536rb2si.html" },
+                13: { title: "Las 39 diferencias", url: "https://goodstream.one/embed-mi5qqyd1eb2n.html" },
+                14: { title: "Corazón duro", url: "https://goodstream.one/embed-gnfglhveazt7.html" },
+                15: { title: "Viejos amigos", url: null }, // No disponible
+                16: { title: "La buena abogada", url: "https://goodstream.one/embed-xi6m1g1wj3sp.html" },
+                17: { title: "Arrepentimiento y segunda oportunidad", url: "https://goodstream.one/embed-i5m9leojidft.html" },
+                18: { title: "Un pequeño olvido", url: "https://goodstream.one/embed-kuxizdpi562v.html" },
+                19: { title: "Medidas a medias", url: "https://goodstream.one/embed-pteh35fj5rih.html" },
+                20: { title: "Bendecido", url: "https://goodstream.one/embed-lbr0aemo6mi2.html" },
+                21: { title: "Un hermoso día", url: "https://goodstream.one/embed-rkp0wowmxjz5.html" },
+                22: { title: "Amor y trabajo", url: "https://goodstream.one/embed-ij8i70mj2ygu.html" }
+            },
+            7: {
+                1: { title: "Episodio 1", url: "https://goodstream.one/embed-c6b0upab178s.html" },
+                2: { title: "Episodio 2", url: "https://goodstream.one/embed-oarrcx7bnang.html" },
+                3: { title: "Episodio 3", url: "https://goodstream.one/embed-eon7hr2a0ynl.html" },
+                4: { title: "Episodio 4", url: "https://goodstream.one/embed-l2kacwh4wvl7.html" },
+                5: { title: "Episodio 5", url: "https://goodstream.one/embed-8y05h40c1ivj.html" },
+                6: { title: "Episodio 6", url: "https://goodstream.one/embed-btkk949tdax8.html" },
+                7: { title: "Episodio 7", url: "https://goodstream.one/embed-p414odhoc16e.html" },
+                8: { title: "Episodio 8", url: "https://goodstream.one/embed-hzrpj8zlhorr.html" },
+                9: { title: "Episodio 9", url: "https://goodstream.one/embed-ip56ilj5cflw.html" },
+                10: { title: "Episodio 10", url: "https://goodstream.one/embed-qk6hpd6fefob.html" }
             }
         };
 
-        // Títulos simulados para los episodios
-        const episodeTitles = {
-            1: "El comienzo del viaje",
-            2: "Misterios del tiempo",
-            3: "Enemigos antiguos",
-            4: "Aliados inesperados",
-            5: "La puerta dimensional",
-            6: "Secretos del pasado",
-            7: "La profecía",
-            8: "Traición en las sombras",
-            9: "El laboratorio secreto",
-            10: "Convergencia temporal",
-            11: "El experimento fallido",
-            12: "Rescate en el futuro",
-            13: "La máquina del tiempo",
-            14: "Paradojas temporales",
-            15: "El último recurso",
-            16: "Revelaciones",
-            17: "La batalla final",
-            18: "Nuevos horizontes",
-            19: "El legado",
-            20: "Hasta la próxima aventura"
-        };
-
-        // Duraciones simuladas (en minutos)
-        const episodeDurations = {
-            1: 45, 2: 42, 3: 48, 4: 44, 5: 46, 6: 43, 7: 47, 8: 45, 9: 49, 10: 44,
-            11: 46, 12: 43, 13: 48, 14: 45, 15: 47, 16: 44, 17: 50, 18: 46, 19: 45, 20: 48
-        };
-
-        let currentSeason = 1;
+        let currentSeason = 4;
         
         // Función para generar capítulos
         function generateEpisodes(season) {
             const container = document.getElementById('episodesContainer');
             container.innerHTML = '';
             
-            const episodes = Object.keys(videoUrls[season]).length;
+            const episodes = seasonsData[season];
             
-            for (let i = 1; i <= episodes; i++) {
+            for (let episodeNum in episodes) {
+                const episode = episodes[episodeNum];
                 const episodeCard = document.createElement('div');
                 episodeCard.className = 'episode-card';
                 episodeCard.dataset.season = season;
-                episodeCard.dataset.episode = i;
+                episodeCard.dataset.episode = episodeNum;
                 
-                const title = episodeTitles[i] || `Episodio ${i}`;
-                const duration = episodeDurations[i] || Math.floor(Math.random() * 11) + 40;
+                // Si no hay URL disponible
+                if (!episode.url) {
+                    episodeCard.style.opacity = '0.5';
+                    episodeCard.style.cursor = 'not-allowed';
+                    episodeCard.innerHTML = `
+                        <div class="episode-number">Capítulo ${episodeNum}</div>
+                        <div class="episode-title">${episode.title}</div>
+                        <div class="episode-duration" style="color: #ff6b6b;">
+                            ❌ No disponible
+                        </div>
+                    `;
+                    continue;
+                }
                 
                 episodeCard.innerHTML = `
-                    <div class="episode-number">Capítulo ${i}</div>
-                    <div class="episode-title">${title}</div>
+                    <div class="episode-number">Capítulo ${episodeNum}</div>
+                    <div class="episode-title">${episode.title}</div>
                     <div class="episode-duration">
                         <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="5,3 19,12 5,21"></polygon>
                         </svg>
-                        ${duration} min
+                        Reproducir
                     </div>
                 `;
                 
-                episodeCard.addEventListener('click', () => playEpisode(season, i));
+                episodeCard.addEventListener('click', () => playEpisode(season, episodeNum, episode.title));
                 container.appendChild(episodeCard);
             }
         }
         
         // Función para reproducir episodio
-        function playEpisode(season, episode) {
-            const video = document.getElementById('mainVideo');
+        function playEpisode(season, episode, title) {
+            const iframe = document.getElementById('mainVideo');
             const videoTitle = document.querySelector('.video-title');
             const videoInfo = document.querySelector('.video-info');
             
-            // Obtener la URL real
-            const videoUrl = videoUrls[season][episode];
-            const title = episodeTitles[episode] || `Episodio ${episode}`;
-            const duration = episodeDurations[episode] || Math.floor(Math.random() * 11) + 40;
+            const episodeData = seasonsData[season][episode];
             
-            if (videoUrl) {
-                video.src = videoUrl;
-                video.load();
-                video.play().catch(e => {
-                    console.log("Error al reproducir:", e);
-                    videoTitle.textContent = `Error al cargar Temporada ${season} - Capítulo ${episode}`;
-                });
+            if (episodeData && episodeData.url) {
+                iframe.src = episodeData.url;
                 videoTitle.textContent = `Temporada ${season} - Capítulo ${episode}: ${title}`;
-                videoInfo.textContent = `${duration} min`;
+                videoInfo.textContent = "Reproduciendo...";
+                
+                // HACER SCROLL A LA PARTE SUPERIOR DE LA PÁGINA
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
         }
         
@@ -420,11 +400,17 @@
                 tab.classList.add('active');
                 currentSeason = parseInt(tab.dataset.season);
                 generateEpisodes(currentSeason);
+                
+                // También hacer scroll al cambiar de temporada
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
         
-        // Generar capítulos iniciales (Temporada 1)
-        generateEpisodes(1);
+        // Generar capítulos iniciales (Temporada 4)
+        generateEpisodes(4);
     </script>
 </body>
 </html>
