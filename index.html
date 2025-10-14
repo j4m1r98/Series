@@ -364,8 +364,9 @@
                         <span id="currentSource">Opción 1</span>
                     </button>
                     <div class="source-dropdown" id="sourceDropdown">
-                        <div class="source-option active" data-source="1">Opción 1 (Goodstream)</div>
-                        <div class="source-option" data-source="2">Opción 2 (Voe)</div>
+                        <div class="source-option active" data-source="1">Opción 1 (embed69)</div>
+                        <div class="source-option" data-source="2">Opción 2 (Goodstream)</div>
+                        <div class="source-option" data-source="3">Opción 3 (Voe)</div>
                     </div>
                 </div>
                 <div class="video-info">Duración: --:--</div>
@@ -401,373 +402,448 @@
     </div>
 
     <script>
-        // Datos reales de las temporadas 4 a 7 con enlaces iframe (doble opción)
+        // Función para generar URL de embed69
+        function getEmbed69Url(season, episode) {
+            const epStr = episode < 10 ? `0${episode}` : `${episode}`;
+            return `https://embed69.org/f/tt6470478-${season}x${epStr}`;
+        }
+
+        // Datos reales de las temporadas 4 a 7 con enlaces iframe (triple opción)
         const seasonsData = {
             4: {
                 1: { 
                     title: "Primera línea - Parte 1", 
-                    url1: "https://goodstream.one/embed-aebclw5by2v8.html",
-                    url2: "https://voe.sx/e/9v0ztebnkpgf"
+                    url1: getEmbed69Url(4, 1),
+                    url2: "https://goodstream.one/embed-aebclw5by2v8.html",
+                    url3: "https://voe.sx/e/9v0ztebnkpgf"
                 },
                 2: { 
                     title: "Primera línea - Parte 2", 
-                    url1: "https://goodstream.one/embed-xrusgqva7f9t.html",
-                    url2: "https://voe.sx/e/7zrrzal7qj0p"
+                    url1: getEmbed69Url(4, 2),
+                    url2: "https://goodstream.one/embed-xrusgqva7f9t.html",
+                    url3: "https://voe.sx/e/7zrrzal7qj0p"
                 },
                 3: { 
                     title: "Novatos", 
-                    url1: "https://goodstream.one/embed-133ui4rvtoad.html",
-                    url2: "https://voe.sx/e/74wzynrwlc4e"
+                    url1: getEmbed69Url(4, 3),
+                    url2: "https://goodstream.one/embed-133ui4rvtoad.html",
+                    url3: "https://voe.sx/e/74wzynrwlc4e"
                 },
                 4: { 
                     title: "No es lo mismo", 
-                    url1: "https://goodstream.one/embed-9jeybe58w83v.html",
-                    url2: "https://voe.sx/e/fchewt6ztnxj"
+                    url1: getEmbed69Url(4, 4),
+                    url2: "https://goodstream.one/embed-9jeybe58w83v.html",
+                    url3: "https://voe.sx/e/fchewt6ztnxj"
                 },
                 5: { 
                     title: "Culpa", 
-                    url1: "https://goodstream.one/embed-8pqm1nrgfrm9.html",
-                    url2: "https://voe.sx/e/dpvgzhx4y25d"
+                    url1: getEmbed69Url(4, 5),
+                    url2: "https://goodstream.one/embed-8pqm1nrgfrm9.html",
+                    url3: "https://voe.sx/e/dpvgzhx4y25d"
                 },
                 6: { 
                     title: "Lim", 
-                    url1: "https://goodstream.one/embed-anp67ik1rhbw.html",
-                    url2: "https://voe.sx/e/3ay3lima82m0"
+                    url1: getEmbed69Url(4, 6),
+                    url2: "https://goodstream.one/embed-anp67ik1rhbw.html",
+                    url3: "https://voe.sx/e/3ay3lima82m0"
                 },
                 7: { 
                     title: "El principio de incertidumbre", 
-                    url1: "https://goodstream.one/embed-0x98fjfdbpm5.html",
-                    url2: "https://voe.sx/e/spgzxwvezpdy"
+                    url1: getEmbed69Url(4, 7),
+                    url2: "https://goodstream.one/embed-0x98fjfdbpm5.html",
+                    url3: "https://voe.sx/e/spgzxwvezpdy"
                 },
                 8: { 
                     title: "Paternidad", 
-                    url1: "https://goodstream.one/embed-momkqip3q4tq.html",
-                    url2: "https://voe.sx/e/t5ghfhggo5ep"
+                    url1: getEmbed69Url(4, 8),
+                    url2: "https://goodstream.one/embed-momkqip3q4tq.html",
+                    url3: "https://voe.sx/e/t5ghfhggo5ep"
                 },
                 9: { 
                     title: "Prácticas irresponsables en el bar de ensaladas", 
-                    url1: "https://goodstream.one/embed-0uab2x8x8yjl.html",
-                    url2: "https://voe.sx/e/rjzydhpwweat"
+                    url1: getEmbed69Url(4, 9),
+                    url2: "https://goodstream.one/embed-0uab2x8x8yjl.html",
+                    url3: "https://voe.sx/e/rjzydhpwweat"
                 },
                 10: { 
                     title: "Descifrar", 
-                    url1: "https://goodstream.one/embed-2rzy3bowl1g7.html",
-                    url2: "https://voe.sx/e/pfg6wrkbfgtv"
+                    url1: getEmbed69Url(4, 10),
+                    url2: "https://goodstream.one/embed-2rzy3bowl1g7.html",
+                    url3: "https://voe.sx/e/pfg6wrkbfgtv"
                 },
                 11: { 
                     title: "Todos estamos locos, a veces", 
-                    url1: "https://goodstream.one/embed-g6gwyutir5ul.html",
-                    url2: "https://voe.sx/e/dafxmogqxdf0"
+                    url1: getEmbed69Url(4, 11),
+                    url2: "https://goodstream.one/embed-g6gwyutir5ul.html",
+                    url3: "https://voe.sx/e/dafxmogqxdf0"
                 },
                 12: { 
                     title: "Pequeños ojos azules", 
-                    url1: "https://goodstream.one/embed-epg86g785vge.html",
-                    url2: "https://voe.sx/e/d8yeoypaup83"
+                    url1: getEmbed69Url(4, 12),
+                    url2: "https://goodstream.one/embed-epg86g785vge.html",
+                    url3: "https://voe.sx/e/d8yeoypaup83"
                 },
                 13: { 
                     title: "Leche derramada", 
-                    url1: "https://goodstream.one/embed-5sqaaffeqzst.html",
-                    url2: "https://voe.sx/e/a3wtemwd1u5z"
+                    url1: getEmbed69Url(4, 13),
+                    url2: "https://goodstream.one/embed-5sqaaffeqzst.html",
+                    url3: "https://voe.sx/e/a3wtemwd1u5z"
                 },
                 14: { 
                     title: "Cuestión de género", 
-                    url1: "https://goodstream.one/embed-xmgbxvpcoo51.html",
-                    url2: "https://voe.sx/e/jx3ydjbymxu7"
+                    url1: getEmbed69Url(4, 14),
+                    url2: "https://goodstream.one/embed-xmgbxvpcoo51.html",
+                    url3: "https://voe.sx/e/jx3ydjbymxu7"
                 },
                 15: { 
                     title: "Esperando", 
-                    url1: "https://goodstream.one/embed-kj0063fx9ilh.html",
-                    url2: "https://voe.sx/e/otqdj12im9ya"
+                    url1: getEmbed69Url(4, 15),
+                    url2: "https://goodstream.one/embed-kj0063fx9ilh.html",
+                    url3: "https://voe.sx/e/otqdj12im9ya"
                 },
                 16: { 
                     title: "El Dr. Ted", 
-                    url1: "https://goodstream.one/embed-aaoc9fagsn3u.html",
-                    url2: "https://voe.sx/e/1wzxcn3kmtue"
+                    url1: getEmbed69Url(4, 16),
+                    url2: "https://goodstream.one/embed-aaoc9fagsn3u.html",
+                    url3: "https://voe.sx/e/1wzxcn3kmtue"
                 },
                 17: { 
                     title: "Déjalo ir", 
-                    url1: "https://goodstream.one/embed-glbok6sihnoh.html",
-                    url2: "https://voe.sx/e/1o9sqwhueuai"
+                    url1: getEmbed69Url(4, 17),
+                    url2: "https://goodstream.one/embed-glbok6sihnoh.html",
+                    url3: "https://voe.sx/e/1o9sqwhueuai"
                 },
                 18: { 
                     title: "Olvidar o perdonar", 
-                    url1: "https://goodstream.one/embed-n4sgkegermdz.html",
-                    url2: "https://voe.sx/e/eqqzwunk1vf3"
+                    url1: getEmbed69Url(4, 18),
+                    url2: "https://goodstream.one/embed-n4sgkegermdz.html",
+                    url3: "https://voe.sx/e/eqqzwunk1vf3"
                 },
                 19: { 
                     title: "Vamos", 
-                    url1: "https://goodstream.one/embed-nl6gbcp7drzt.html",
-                    url2: "https://voe.sx/e/jbf4lqipgfth"
+                    url1: getEmbed69Url(4, 19),
+                    url2: "https://goodstream.one/embed-nl6gbcp7drzt.html",
+                    url3: "https://voe.sx/e/jbf4lqipgfth"
                 },
                 20: { 
                     title: "Regresamos", 
-                    url1: "https://goodstream.one/embed-s62ebmwzsa6f.html",
-                    url2: "https://voe.sx/e/asjknn3gy2gy"
+                    url1: getEmbed69Url(4, 20),
+                    url2: "https://goodstream.one/embed-s62ebmwzsa6f.html",
+                    url3: "https://voe.sx/e/asjknn3gy2gy"
                 }
             },
             5: {
                 1: { 
                     title: "Volver a empezar", 
-                    url1: "https://goodstream.one/embed-ohkbmz5lbids.html",
-                    url2: "https://voe.sx/e/wsvkempby6ko"
+                    url1: getEmbed69Url(5, 1),
+                    url2: "https://goodstream.one/embed-ohkbmz5lbids.html",
+                    url3: "https://voe.sx/e/wsvkempby6ko"
                 },
                 2: { 
                     title: "Pastel de bodas", 
-                    url1: "https://goodstream.one/embed-rh17qlecfcxf.html",
-                    url2: "https://voe.sx/e/x42ekjet2kld"
+                    url1: getEmbed69Url(5, 2),
+                    url2: "https://goodstream.one/embed-rh17qlecfcxf.html",
+                    url3: "https://voe.sx/e/x42ekjet2kld"
                 },
                 3: { 
                     title: "Medida de inteligencia", 
-                    url1: "https://goodstream.one/embed-phkpxppuhc2o.html",
-                    url2: "https://voe.sx/e/wyiout5hwzda"
+                    url1: getEmbed69Url(5, 3),
+                    url2: "https://goodstream.one/embed-phkpxppuhc2o.html",
+                    url3: "https://voe.sx/e/wyiout5hwzda"
                 },
                 4: { 
                     title: "Racionalidad", 
-                    url1: "https://goodstream.one/embed-3g9ac1t15ld6.html",
-                    url2: "https://voe.sx/e/wrhfyfhbeoya"
+                    url1: getEmbed69Url(5, 4),
+                    url2: "https://goodstream.one/embed-3g9ac1t15ld6.html",
+                    url3: "https://voe.sx/e/wrhfyfhbeoya"
                 },
                 5: { 
                     title: "Ciudad de locos", 
-                    url1: "https://goodstream.one/embed-9agl2h6uj2jn.html",
-                    url2: "https://voe.sx/e/sax5x0sljsye"
+                    url1: getEmbed69Url(5, 5),
+                    url2: "https://goodstream.one/embed-9agl2h6uj2jn.html",
+                    url3: "https://voe.sx/e/sax5x0sljsye"
                 },
                 6: { 
                     title: "Un corazón", 
-                    url1: "https://goodstream.one/embed-bpzbnt46v62k.html",
-                    url2: "https://voe.sx/e/xqx9qanpsklx"
+                    url1: getEmbed69Url(5, 6),
+                    url2: "https://goodstream.one/embed-bpzbnt46v62k.html",
+                    url3: "https://voe.sx/e/xqx9qanpsklx"
                 },
                 7: { 
                     title: "Vencido", 
-                    url1: "https://goodstream.one/embed-uukvcasu16zc.html",
-                    url2: "https://voe.sx/e/q6oonst0vabh"
+                    url1: getEmbed69Url(5, 7),
+                    url2: "https://goodstream.one/embed-uukvcasu16zc.html",
+                    url3: "https://voe.sx/e/q6oonst0vabh"
                 },
                 8: { 
                     title: "Rebelión", 
-                    url1: "https://goodstream.one/embed-t6jjq6czjlqm.html",
-                    url2: "https://voe.sx/e/6hmwbacujrxz"
+                    url1: getEmbed69Url(5, 8),
+                    url2: "https://goodstream.one/embed-t6jjq6czjlqm.html",
+                    url3: "https://voe.sx/e/6hmwbacujrxz"
                 },
                 9: { 
                     title: "Yippee Ki-Yay", 
-                    url1: "https://goodstream.one/embed-z1yf9rc61907.html",
-                    url2: "https://voe.sx/e/yumetdlclx3g"
+                    url1: getEmbed69Url(5, 9),
+                    url2: "https://goodstream.one/embed-z1yf9rc61907.html",
+                    url3: "https://voe.sx/e/yumetdlclx3g"
                 },
                 10: { 
                     title: "Día libre", 
-                    url1: "https://goodstream.one/embed-iu5rxd00gcge.html",
-                    url2: "https://voe.sx/e/jle7gk5wicqu"
+                    url1: getEmbed69Url(5, 10),
+                    url2: "https://goodstream.one/embed-iu5rxd00gcge.html",
+                    url3: "https://voe.sx/e/jle7gk5wicqu"
                 },
                 11: { 
                     title: "La familia", 
-                    url1: "https://goodstream.one/embed-s480sbuf9p01.html",
-                    url2: "https://voe.sx/e/hye9rqewtmd3"
+                    url1: getEmbed69Url(5, 11),
+                    url2: "https://goodstream.one/embed-s480sbuf9p01.html",
+                    url3: "https://voe.sx/e/hye9rqewtmd3"
                 },
                 12: { 
                     title: "Escasez", 
-                    url1: "https://goodstream.one/embed-6fpoas6d2bjo.html",
-                    url2: "https://voe.sx/e/rtsm2doklqdu"
+                    url1: getEmbed69Url(5, 12),
+                    url2: "https://goodstream.one/embed-6fpoas6d2bjo.html",
+                    url3: "https://voe.sx/e/rtsm2doklqdu"
                 },
                 13: { 
                     title: "Crecer duele", 
-                    url1: "https://goodstream.one/embed-6t2lit29wmji.html",
-                    url2: "https://voe.sx/e/29dpnooxbph7"
+                    url1: getEmbed69Url(5, 13),
+                    url2: "https://goodstream.one/embed-6t2lit29wmji.html",
+                    url3: "https://voe.sx/e/29dpnooxbph7"
                 },
                 14: { 
                     title: "Intoxicación compartida", 
-                    url1: "https://goodstream.one/embed-4brd3u50i63w.html",
-                    url2: "https://voe.sx/e/60xa39fqoios"
+                    url1: getEmbed69Url(5, 14),
+                    url2: "https://goodstream.one/embed-4brd3u50i63w.html",
+                    url3: "https://voe.sx/e/60xa39fqoios"
                 },
                 15: { 
                     title: "A mi manera", 
-                    url1: "https://goodstream.one/embed-gygol91qf0dp.html",
-                    url2: "https://voe.sx/e/pqorqrkgzkgj"
+                    url1: getEmbed69Url(5, 15),
+                    url2: "https://goodstream.one/embed-gygol91qf0dp.html",
+                    url3: "https://voe.sx/e/pqorqrkgzkgj"
                 },
                 16: { 
                     title: "El show de Shaun", 
-                    url1: "https://goodstream.one/embed-xtgo5cr4xfnv.html",
-                    url2: "https://voe.sx/e/ku6xv2p65jd5"
+                    url1: getEmbed69Url(5, 16),
+                    url2: "https://goodstream.one/embed-xtgo5cr4xfnv.html",
+                    url3: "https://voe.sx/e/ku6xv2p65jd5"
                 },
                 17: { 
                     title: "El show de Lea", 
-                    url1: "https://goodstream.one/embed-1l9rpjp0we0l.html",
-                    url2: "https://voe.sx/e/xeqqgyxrkzi1"
+                    url1: getEmbed69Url(5, 17),
+                    url2: "https://goodstream.one/embed-1l9rpjp0we0l.html",
+                    url3: "https://voe.sx/e/xeqqgyxrkzi1"
                 },
                 18: { 
                     title: "Hijos", 
-                    url1: "https://goodstream.one/embed-6839qfdg3re2.html",
-                    url2: "https://voe.sx/e/kv9my8ryfnja"
+                    url1: getEmbed69Url(5, 18),
+                    url2: "https://goodstream.one/embed-6839qfdg3re2.html",
+                    url3: "https://voe.sx/e/kv9my8ryfnja"
                 }
             },
             6: {
                 1: { 
                     title: "Afterparty", 
-                    url1: "https://goodstream.one/embed-p96rbtp8lrqm.html",
-                    url2: "https://voe.sx/e/ynx7gf3nul0k"
+                    url1: getEmbed69Url(6, 1),
+                    url2: "https://goodstream.one/embed-p96rbtp8lrqm.html",
+                    url3: "https://voe.sx/e/ynx7gf3nul0k"
                 },
                 2: { 
                     title: "Cambio de perspectiva", 
-                    url1: "https://goodstream.one/embed-5voyt451b5p4.html",
-                    url2: "https://voe.sx/e/istnkvvaqrzd"
+                    url1: getEmbed69Url(6, 2),
+                    url2: "https://goodstream.one/embed-5voyt451b5p4.html",
+                    url3: "https://voe.sx/e/istnkvvaqrzd"
                 },
                 3: { 
                     title: "Una buena señal", 
-                    url1: "https://goodstream.one/embed-4zctqr3fnz50.html",
-                    url2: "https://voe.sx/e/eguwxjfczlad"
+                    url1: getEmbed69Url(6, 3),
+                    url2: "https://goodstream.one/embed-4zctqr3fnz50.html",
+                    url3: "https://voe.sx/e/eguwxjfczlad"
                 },
                 4: { 
                     title: "La esquirla", 
-                    url1: "https://goodstream.one/embed-d6zbttqybxf3.html",
-                    url2: "https://voe.sx/e/yorpmru127mp"
+                    url1: getEmbed69Url(6, 4),
+                    url2: "https://goodstream.one/embed-d6zbttqybxf3.html",
+                    url3: "https://voe.sx/e/yorpmru127mp"
                 },
                 5: { 
                     title: "Oportunidad de crecimiento", 
-                    url1: "https://goodstream.one/embed-zzj54ktx02uq.html",
-                    url2: "https://voe.sx/e/kpbc7xvumhhw"
+                    url1: getEmbed69Url(6, 5),
+                    url2: "https://goodstream.one/embed-zzj54ktx02uq.html",
+                    url3: "https://voe.sx/e/kpbc7xvumhhw"
                 },
                 6: { 
                     title: "Calor y mal humor", 
-                    url1: "https://goodstream.one/embed-qymv7r7mqqhe.html",
-                    url2: "https://voe.sx/e/hr2s9rb6rbmx"
+                    url1: getEmbed69Url(6, 6),
+                    url2: "https://goodstream.one/embed-qymv7r7mqqhe.html",
+                    url3: "https://voe.sx/e/hr2s9rb6rbmx"
                 },
                 7: { 
                     title: "Los muchachos no lloran. De la A a la F", 
-                    url1: "https://goodstream.one/embed-tzs9c7mt8pmw.html",
-                    url2: "https://voe.sx/e/s5oz7izcmzbf"
+                    url1: getEmbed69Url(6, 7),
+                    url2: "https://goodstream.one/embed-tzs9c7mt8pmw.html",
+                    url3: "https://voe.sx/e/s5oz7izcmzbf"
                 },
                 8: { 
                     title: "Decisiones difíciles", 
-                    url1: "https://goodstream.one/embed-wl1b74nlmmf1.html",
-                    url2: "https://voe.sx/e/bnt54szqslvh"
+                    url1: getEmbed69Url(6, 8),
+                    url2: "https://goodstream.one/embed-wl1b74nlmmf1.html",
+                    url3: "https://voe.sx/e/bnt54szqslvh"
                 },
                 9: { 
                     title: "Destruido o no", 
-                    url1: "https://goodstream.one/embed-w2ht93rf2nym.html",
-                    url2: "https://voe.sx/e/fohu5gfvjegw"
+                    url1: getEmbed69Url(6, 9),
+                    url2: "https://goodstream.one/embed-w2ht93rf2nym.html",
+                    url3: "https://voe.sx/e/fohu5gfvjegw"
                 },
                 10: { 
                     title: "La fuerza del silencio", 
-                    url1: "https://goodstream.one/embed-orrop6r1ix2j.html",
-                    url2: "https://voe.sx/e/5rkvccxo1gke"
+                    url1: getEmbed69Url(6, 10),
+                    url2: "https://goodstream.one/embed-orrop6r1ix2j.html",
+                    url3: "https://voe.sx/e/5rkvccxo1gke"
                 },
                 11: { 
                     title: "Un buen chico", 
-                    url1: "https://goodstream.one/embed-160ihf29bi06.html",
-                    url2: "https://voe.sx/e/qbboo1gvm1iv"
+                    url1: getEmbed69Url(6, 11),
+                    url2: "https://goodstream.one/embed-160ihf29bi06.html",
+                    url3: "https://voe.sx/e/qbboo1gvm1iv"
                 },
                 12: { 
                     title: "365 grados", 
-                    url1: "https://goodstream.one/embed-tzu0536rb2si.html",
-                    url2: "https://voe.sx/e/bgdoqi4y0m1m"
+                    url1: getEmbed69Url(6, 12),
+                    url2: "https://goodstream.one/embed-tzu0536rb2si.html",
+                    url3: "https://voe.sx/e/bgdoqi4y0m1m"
                 },
                 13: { 
                     title: "Las 39 diferencias", 
-                    url1: "https://goodstream.one/embed-mi5qqyd1eb2n.html",
-                    url2: "https://voe.sx/e/ypa3qon02xwh"
+                    url1: getEmbed69Url(6, 13),
+                    url2: "https://goodstream.one/embed-mi5qqyd1eb2n.html",
+                    url3: "https://voe.sx/e/ypa3qon02xwh"
                 },
                 14: { 
                     title: "Corazón duro", 
-                    url1: "https://goodstream.one/embed-gnfglhveazt7.html",
-                    url2: "https://voe.sx/e/xch5gkhgeq01"
+                    url1: getEmbed69Url(6, 14),
+                    url2: "https://goodstream.one/embed-gnfglhveazt7.html",
+                    url3: "https://voe.sx/e/xch5gkhgeq01"
                 },
                 15: { 
                     title: "Viejos amigos", 
-                    url1: null,
-                    url2: "https://voe.sx/e/rwpw4pzigmaj"
+                    url1: getEmbed69Url(6, 15),
+                    url2: null,
+                    url3: "https://voe.sx/e/rwpw4pzigmaj"
                 },
                 16: { 
                     title: "La buena abogada", 
-                    url1: "https://goodstream.one/embed-xi6m1g1wj3sp.html",
-                    url2: "https://voe.sx/e/kbvha3yi8jyc"
+                    url1: getEmbed69Url(6, 16),
+                    url2: "https://goodstream.one/embed-xi6m1g1wj3sp.html",
+                    url3: "https://voe.sx/e/kbvha3yi8jyc"
                 },
                 17: { 
                     title: "Arrepentimiento y segunda oportunidad", 
-                    url1: "https://goodstream.one/embed-i5m9leojidft.html",
-                    url2: "https://voe.sx/e/mbtk0sngmzlk"
+                    url1: getEmbed69Url(6, 17),
+                    url2: "https://goodstream.one/embed-i5m9leojidft.html",
+                    url3: "https://voe.sx/e/mbtk0sngmzlk"
                 },
                 18: { 
                     title: "Un pequeño olvido", 
-                    url1: "https://goodstream.one/embed-kuxizdpi562v.html",
-                    url2: "https://voe.sx/e/nof6untozopu"
+                    url1: getEmbed69Url(6, 18),
+                    url2: "https://goodstream.one/embed-kuxizdpi562v.html",
+                    url3: "https://voe.sx/e/nof6untozopu"
                 },
                 19: { 
                     title: "Medidas a medias", 
-                    url1: "https://goodstream.one/embed-pteh35fj5rih.html",
-                    url2: "https://voe.sx/e/m7gougmcdxxm"
+                    url1: getEmbed69Url(6, 19),
+                    url2: "https://goodstream.one/embed-pteh35fj5rih.html",
+                    url3: "https://voe.sx/e/m7gougmcdxxm"
                 },
                 20: { 
                     title: "Bendecido", 
-                    url1: "https://goodstream.one/embed-lbr0aemo6mi2.html",
-                    url2: "https://voe.sx/e/rbo5vzal9rkn"
+                    url1: getEmbed69Url(6, 20),
+                    url2: "https://goodstream.one/embed-lbr0aemo6mi2.html",
+                    url3: "https://voe.sx/e/rbo5vzal9rkn"
                 },
                 21: { 
                     title: "Un hermoso día", 
-                    url1: "https://goodstream.one/embed-rkp0wowmxjz5.html",
-                    url2: "https://voe.sx/e/cddzypf7clpr"
+                    url1: getEmbed69Url(6, 21),
+                    url2: "https://goodstream.one/embed-rkp0wowmxjz5.html",
+                    url3: "https://voe.sx/e/cddzypf7clpr"
                 },
                 22: { 
                     title: "Amor y trabajo", 
-                    url1: "https://goodstream.one/embed-ij8i70mj2ygu.html",
-                    url2: "https://voe.sx/e/cd4lh0rvmniv"
+                    url1: getEmbed69Url(6, 22),
+                    url2: "https://goodstream.one/embed-ij8i70mj2ygu.html",
+                    url3: "https://voe.sx/e/cd4lh0rvmniv"
                 }
             },
             7: {
                 1: { 
                     title: "Episodio 1", 
-                    url1: "https://goodstream.one/embed-c6b0upab178s.html",
-                    url2: "https://voe.sx/e/kefpmi8ce3n7"
+                    url1: getEmbed69Url(7, 1),
+                    url2: "https://goodstream.one/embed-c6b0upab178s.html",
+                    url3: "https://voe.sx/e/kefpmi8ce3n7"
                 },
                 2: { 
                     title: "Episodio 2", 
-                    url1: "https://goodstream.one/embed-oarrcx7bnang.html",
-                    url2: "https://voe.sx/e/n881ovvvns05"
+                    url1: getEmbed69Url(7, 2),
+                    url2: "https://goodstream.one/embed-oarrcx7bnang.html",
+                    url3: "https://voe.sx/e/n881ovvvns05"
                 },
                 3: { 
                     title: "Episodio 3", 
-                    url1: "https://goodstream.one/embed-eon7hr2a0ynl.html",
-                    url2: "https://voe.sx/e/qshpfdmbomih"
+                    url1: getEmbed69Url(7, 3),
+                    url2: "https://goodstream.one/embed-eon7hr2a0ynl.html",
+                    url3: "https://voe.sx/e/qshpfdmbomih"
                 },
                 4: { 
                     title: "Episodio 4", 
-                    url1: "https://goodstream.one/embed-l2kacwh4wvl7.html",
-                    url2: "https://voe.sx/e/hecilnoo3rlf"
+                    url1: getEmbed69Url(7, 4),
+                    url2: "https://goodstream.one/embed-l2kacwh4wvl7.html",
+                    url3: "https://voe.sx/e/hecilnoo3rlf"
                 },
                 5: { 
                     title: "Episodio 5", 
-                    url1: "https://goodstream.one/embed-8y05h40c1ivj.html",
-                    url2: "https://voe.sx/e/7fnhbwrzckz1"
+                    url1: getEmbed69Url(7, 5),
+                    url2: "https://goodstream.one/embed-8y05h40c1ivj.html",
+                    url3: "https://voe.sx/e/7fnhbwrzckz1"
                 },
                 6: { 
                     title: "Episodio 6", 
-                    url1: "https://goodstream.one/embed-btkk949tdax8.html",
-                    url2: "https://voe.sx/e/vq5vckfo00x2"
+                    url1: getEmbed69Url(7, 6),
+                    url2: "https://goodstream.one/embed-btkk949tdax8.html",
+                    url3: "https://voe.sx/e/vq5vckfo00x2"
                 },
                 7: { 
                     title: "Episodio 7", 
-                    url1: "https://goodstream.one/embed-p414odhoc16e.html",
-                    url2: "https://voe.sx/e/yfrdzct7fjgq"
+                    url1: getEmbed69Url(7, 7),
+                    url2: "https://goodstream.one/embed-p414odhoc16e.html",
+                    url3: "https://voe.sx/e/yfrdzct7fjgq"
                 },
                 8: { 
                     title: "Episodio 8", 
-                    url1: "https://goodstream.one/embed-hzrpj8zlhorr.html",
-                    url2: "https://voe.sx/e/5a1bqqzhv04d"
+                    url1: getEmbed69Url(7, 8),
+                    url2: "https://goodstream.one/embed-hzrpj8zlhorr.html",
+                    url3: "https://voe.sx/e/5a1bqqzhv04d"
                 },
                 9: { 
                     title: "Episodio 9", 
-                    url1: "https://goodstream.one/embed-ip56ilj5cflw.html",
-                    url2: "https://voe.sx/e/xynewqfpga1n"
+                    url1: getEmbed69Url(7, 9),
+                    url2: "https://goodstream.one/embed-ip56ilj5cflw.html",
+                    url3: "https://voe.sx/e/xynewqfpga1n"
                 },
                 10: { 
                     title: "Episodio 10", 
-                    url1: "https://goodstream.one/embed-qk6hpd6fefob.html",
-                    url2: "https://voe.sx/e/9nfcea2jgktb"
+                    url1: getEmbed69Url(7, 10),
+                    url2: "https://goodstream.one/embed-qk6hpd6fefob.html",
+                    url3: "https://voe.sx/e/9nfcea2jgktb"
                 }
             }
         };
 
         let currentSeason = 4;
         let currentEpisode = null;
-        let currentSource = 1; // 1 = Goodstream, 2 = Voe
+        let currentSource = 1; // 1 = embed69 (por defecto), 2 = Goodstream, 3 = Voe
 
-        // Función para generar capítulos
         function generateEpisodes(season) {
             const container = document.getElementById('episodesContainer');
             container.innerHTML = '';
@@ -797,33 +873,28 @@
             }
         }
         
-        // Función para reproducir episodio
         function playEpisode(season, episode, title) {
             const iframe = document.getElementById('mainVideo');
             const videoTitle = document.getElementById('videoTitle');
-            const videoInfo = document.querySelector('.video-info');
             
             const episodeData = seasonsData[season][episode];
             currentSeason = parseInt(season);
             currentEpisode = parseInt(episode);
             
-            // Seleccionar URL según la fuente actual
             let url;
             if (currentSource === 1) {
                 url = episodeData.url1;
-            } else {
+            } else if (currentSource === 2) {
                 url = episodeData.url2;
+            } else {
+                url = episodeData.url3;
             }
             
             if (url) {
                 iframe.src = url;
                 videoTitle.textContent = `Temporada ${season} - Capítulo ${episode}: ${title}`;
-                videoInfo.textContent = "Reproduciendo...";
-                
-                // Actualizar botones de navegación
                 updateNavigationButtons();
                 
-                // HACER SCROLL A LA PARTE SUPERIOR DE LA PÁGINA
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
@@ -831,7 +902,6 @@
             }
         }
         
-        // Función para actualizar botones de navegación
         function updateNavigationButtons() {
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
@@ -839,7 +909,6 @@
             const episodes = Object.keys(seasonsData[currentSeason]).map(Number).sort((a,b) => a-b);
             const currentIndex = episodes.indexOf(currentEpisode);
             
-            // Botón anterior
             if (currentIndex > 0) {
                 prevButton.disabled = false;
                 prevButton.onclick = () => {
@@ -852,7 +921,6 @@
                 prevButton.onclick = null;
             }
             
-            // Botón siguiente
             if (currentIndex < episodes.length - 1) {
                 nextButton.disabled = false;
                 nextButton.onclick = () => {
@@ -866,13 +934,11 @@
             }
         }
         
-        // Manejar selector de fuente
         document.getElementById('sourceButton').addEventListener('click', function() {
             const dropdown = document.getElementById('sourceDropdown');
             dropdown.classList.toggle('active');
         });
         
-        // Cerrar dropdown al hacer clic fuera
         document.addEventListener('click', function(e) {
             const dropdown = document.getElementById('sourceDropdown');
             const button = document.getElementById('sourceButton');
@@ -881,23 +947,24 @@
             }
         });
         
-        // Manejar selección de fuente
         document.querySelectorAll('.source-option').forEach(option => {
             option.addEventListener('click', function() {
                 const source = parseInt(this.dataset.source);
                 currentSource = source;
                 
-                // Actualizar UI
-                document.getElementById('currentSource').textContent = source === 1 ? 'Opción 1' : 'Opción 2';
+                const labels = ["Opción 1", "Opción 2", "Opción 3"];
+                document.getElementById('currentSource').textContent = labels[source - 1];
                 document.querySelectorAll('.source-option').forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
                 document.getElementById('sourceDropdown').classList.remove('active');
                 
-                // Si hay un episodio actualmente reproduciéndose, cambiar la fuente
                 if (currentEpisode !== null) {
                     const episodeData = seasonsData[currentSeason][currentEpisode];
                     const iframe = document.getElementById('mainVideo');
-                    let url = source === 1 ? episodeData.url1 : episodeData.url2;
+                    let url;
+                    if (source === 1) url = episodeData.url1;
+                    else if (source === 2) url = episodeData.url2;
+                    else url = episodeData.url3;
                     if (url) {
                         iframe.src = url;
                     }
@@ -905,24 +972,19 @@
             });
         });
         
-        // Manejar clic en pestañas de temporadas
         document.querySelectorAll('.season-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remover clase active de todas las pestañas
                 document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
-                // Agregar clase active a la pestaña clickeada
                 tab.classList.add('active');
                 currentSeason = parseInt(tab.dataset.season);
-                currentEpisode = null; // Resetear episodio actual
+                currentEpisode = null;
                 generateEpisodes(currentSeason);
                 
-                // Resetear reproductor
                 document.getElementById('mainVideo').src = 'about:blank';
                 document.getElementById('videoTitle').textContent = 'Selecciona un capítulo para reproducir';
                 document.getElementById('prevButton').disabled = true;
                 document.getElementById('nextButton').disabled = true;
                 
-                // También hacer scroll al cambiar de temporada
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
@@ -930,7 +992,6 @@
             });
         });
         
-        // Generar capítulos iniciales (Temporada 4)
         generateEpisodes(4);
     </script>
 </body>
